@@ -35,12 +35,14 @@ export default class Slider extends Component {
   }
 
   drag (e) {
-    if (this.state.isDragging) {
-      let deltaX = e.clientX - this.state.dragOrigin[0];
-      let deltaY = e.clientY - this.state.dragOrigin[1];
+    e.stopPropagation();
+    e.preventDefault();
 
-      let deltaPercentage = deltaX / this.props.width;
-      let newPercentage = this.state.percentage + deltaPercentage;
+    if (this.state.isDragging) {
+      const deltaX = e.clientX - this.state.dragOrigin[0];
+
+      const deltaPercentage = deltaX / this.props.width;
+      const newPercentage = this.state.percentage + deltaPercentage;
 
       if (newPercentage <= 1 && newPercentage >= 0) {
         this.setState({
